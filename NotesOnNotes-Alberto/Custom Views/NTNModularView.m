@@ -84,9 +84,14 @@ object:[UIDevice currentDevice]];
 {
     UIView *parentView = self.superview;
     CGRect newFrame    = self.frame;
-    newFrame.size.width     = parentView.frame.size.width - kMarginWidth;
+    newFrame.size.width     = parentView.frame.size.width - kMarginWidth*2;
     self.frame              = newFrame;
     
 }
-
+- (void)setPosition:(CGRect)rect withLineHeight:(CGFloat)lineHeight
+{
+    CGRect newFrame    = self.frame;
+    newFrame.origin.y  = rect.origin.y + lineHeight;
+    self.frame              = newFrame;
+}
 @end
