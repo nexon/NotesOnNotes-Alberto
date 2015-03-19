@@ -90,8 +90,14 @@ object:[UIDevice currentDevice]];
 }
 - (void)setPosition:(CGRect)rect withLineHeight:(CGFloat)lineHeight
 {
+    CGFloat height = rect.origin.y + lineHeight;
     CGRect newFrame    = self.frame;
-    newFrame.origin.y  = rect.origin.y + lineHeight;
+    
+    if(height >= newFrame.size.height) {
+        newFrame.origin.y  = height - (lineHeight * 10);
+    } else {
+        newFrame.origin.y  = height;
+    }
     self.frame              = newFrame;
 }
 @end
