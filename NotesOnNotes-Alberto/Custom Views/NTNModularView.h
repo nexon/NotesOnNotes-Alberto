@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  NTNModularView.h
 //  NotesOnNotes-Alberto
 //
 //  Created by Alberto Lagos on 18-03-15.
@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NTNModularView.h"
 
-@interface ViewController : UIViewController
+@interface NTNModularView : UIView
 
-
+- (void)setTargetForTrashCan:(id)target withSelector:(SEL)sel;
+- (NSString *)text;
 @end
-
