@@ -33,22 +33,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITextViewDelegate
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    return YES;
-}
-
-- (void)textViewDidChangeSelection:(UITextView *)textView
-{
-   
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-}
-
 - (void)highlight
 {
     NSRange selectedTextRange = self.textView.selectedRange;
