@@ -55,7 +55,7 @@
     
     CGRect cursorPosition = [ self.textView caretRectForPosition: self.textView.selectedTextRange.end];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.textView.text];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.textView.text attributes:self.textView.typingAttributes];
     
     
     
@@ -63,10 +63,6 @@
                              value:[UIColor purpleColor]
                              range:selectedTextRange];
     
-    
-    [attributedString addAttribute:NSFontAttributeName
-                             value:self.textView.font
-                             range:NSMakeRange(0, self.textView.text.length)];
     
     self.textView.scrollEnabled = NO;
     self.textView.attributedText = attributedString;
@@ -78,8 +74,6 @@
     [self.modularView setTargetForTrashCan:self withSelector:@selector(trashCanDidPress:)];
     [self.modularView setPosition:cursorPosition withLineHeight:self.textView.font.lineHeight];
     [self.view addSubview:self.modularView];
-    
-    
 }
 
 - (void)trashCanDidPress:(id)sender
@@ -92,7 +86,8 @@
 - (void)setLocked:(BOOL)locked
 {
     _locked = locked;
-    self.textView.editable   = !_locked;
-    self.textView.selectable = !_locked;
+    self.textView.editable      = !_locked;
+    self.textView.selectable    = !_locked;
+    self.textView.scrollEnabled = !_locked;
 }
 @end
