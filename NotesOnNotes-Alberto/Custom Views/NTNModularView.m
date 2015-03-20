@@ -43,7 +43,6 @@
 
 - (void)setup
 {
-    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification
 object:[UIDevice currentDevice]];
     
