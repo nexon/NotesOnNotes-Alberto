@@ -19,7 +19,6 @@
 @property (strong,nonatomic) UIButton   *trashCanButton;
 
 - (void)setup;
-- (void)orientationChanged:(id)sender;
 @end
 @implementation NTNModularView
 
@@ -43,10 +42,6 @@
 
 - (void)setup
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification
-object:[UIDevice currentDevice]];
-    
-    
     self.backgroundColor     = [UIColor whiteColor];
     self.layer.borderColor   = [UIColor blackColor].CGColor;
     self.layer.borderWidth   = 1.0;
@@ -67,36 +62,56 @@ object:[UIDevice currentDevice]];
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 35, self.frame.size.width, self.frame.size.height - 35)];
     [self.textView becomeFirstResponder];
     [self addSubview:self.textView];
-
+    
+    self.trashCanButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
 }
 
 - (void)setTargetForTrashCan:(id)target withSelector:(SEL)sel
 {
     [self.trashCanButton addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
 }
+
 - (NSString *)text
 {
     return self.textView.text;
 }
 
-- (void)orientationChanged:(id)sender
+- (void)updateConstraints
 {
-    UIView *parentView = self.superview;
-    CGRect newFrame    = self.frame;
-    newFrame.size.width     = parentView.frame.size.width - kMarginWidth*2;
-    self.frame              = newFrame;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.trashCanButton
+                                                     attribute:NSLayoutAttributeTop
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeTop
+                                                    multiplier:1.0
+                                                      constant:10]];
     
-}
-- (void)setPosition:(CGRect)rect withLineHeight:(CGFloat)lineHeight
-{
-    CGFloat height = rect.origin.y + lineHeight;
-    CGRect newFrame    = self.frame;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.trashCanButton
+                                                     attribute:NSLayoutAttributeTrailing
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeTrailing
+                                                    multiplier:1.0
+                                                      constant:-10]];
     
-    if(height >= newFrame.size.height) {
-        newFrame.origin.y  = height - (lineHeight * 10);
-    } else {
-        newFrame.origin.y  = height;
-    }
-    self.frame              = newFrame;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.trashCanButton
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1.0
+                                                      constant:25]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.trashCanButton
+                                                     attribute:NSLayoutAttributeHeight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1.0
+                                                      constant:25]];
+    
+    [super updateConstraints];
 }
 @end

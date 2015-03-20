@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NTNModularView : UIView
-
 - (void)setTargetForTrashCan:(id)target withSelector:(SEL)sel;
 - (NSString *)text;
-- (void)setPosition:(CGRect)rect withLineHeight:(CGFloat)lineHeight;
 @end
